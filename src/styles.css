@@ -22,4 +22,7 @@ html {
 nav {
     background-color: #181a1b !important;
     color: #e6e7e8 !important;
+    -webkit-box-shadow: 0px 3px 5px 0px rgba(0,0,0,10) !important;
+    -moz-box-shadow: 0px 3px 5px 0px rgba(0,0,0,10) !important;
+    box-shadow: 0px 3px 5px 0px rgba(0,0,0,10) !important;
 }
