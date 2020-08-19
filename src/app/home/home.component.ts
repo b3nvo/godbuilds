@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  searchForm;
+
+  constructor(private formBuilder: FormBuilder, private api: ApiService) {
+      this.searchForm = this.formBuilder.group({
+        username: ''
+      });
+   }
 
   ngOnInit(): void {
+
   }
 
+  onSubmit(data) {
+    this.api.getMatchHistory(data.username);
+  }
 }

@@ -1,0 +1,48 @@
+.page {
+  height: 100% !important;
+  max-height: 100% !important;
+}
+
+.background-blured {
+    filter: blur(3px); 
+    -webkit-filter: blur(3px);
+    height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.username-search {
+  width: 30em;
+  height: 3em;
+  font-size: 16px !important;
+}
+
+.button-user {
+  height: 3em;
+  margin-left: -3px;
+  border-radius: 3px;
+}
+
+.page {
+  margin-top: 20% !important;
+}
+
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 812px) 
+  and (-webkit-min-device-pixel-ratio: 3) { 
+    .username-search {
+      width: 30em;
+      height: 2em;
+      font-size: 16px !important;
+    }
+    
+    .button-user {
+      height: 3em;
+      margin-left: -3px;
+      border-radius: 3px;
+    }
+}

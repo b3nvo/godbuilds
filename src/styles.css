@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+input {
+    background-color: #e6e7e8 !important;
+    color: #181a1b !important;
+    border-radius: 3px !important;
+}
+
+::placeholder {
+    color: #181a1b !important;
+    opacity: .5;
+}
+
+.uk-button-default {
+    background-color: #c0c5c7 !important;
+    color: #4b5154 !important;
+}
+
+html {
+    background-color: #181a1b !important;
+}
+
+nav {
+    background-color: #181a1b !important;
+    color: #e6e7e8 !important;
+}
