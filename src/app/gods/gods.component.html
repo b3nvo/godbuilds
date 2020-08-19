@@ -1,1 +1,11 @@
-<p>gods works!</p>
+<div class="uk-container">
+    <p *ngIf="gods.length < 1">Gods are still loading</p>
+    <div class="uk-grid">
+        <div *ngFor="let god of gods; let i = index" class="uk-grid-small uk-text-center grid-item" (click)="getGod(god)">
+            <div class="uk-grid-column-small uk-grid-row-large uk-child-width-1-3@s uk-text-center" >
+                <img src={{god.godIcon_URL}} class="godImg">
+            </div>
+            <p class="godName">{{god.Name}}</p>
+        </div>
+    </div>
+</div>

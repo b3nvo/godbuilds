@@ -21,6 +21,8 @@ export class HomeComponent implements OnInit {
 
   }
 
+  
+
   onSubmit(data) {
     this.api.getMatchHistory(data.username);
   }

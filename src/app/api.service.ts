@@ -12,10 +12,17 @@ export class ApiService {
 
    getMatchHistory(username) {
      let url = this.buildURL('/player/history/', username);
-     this.makeRequest(url)
-     .subscribe((data) => {
-       console.log(data);
-     })
+     return this.makeRequest(url);
+   }
+
+   getGods() {
+      let url = this.buildURL('/god', '');
+      return this.makeRequest(url);
+   }
+
+   getItems() {
+      let url = this.buildURL('/item', '');
+      return this.makeRequest(url);
    }
 
    private buildURL(method, data) {

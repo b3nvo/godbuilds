@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../api.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-gods',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GodsComponent implements OnInit {
 
-  constructor() { }
+  gods:any = [];
+
+  constructor(private api: ApiService, private route: ActivatedRoute, private router: Router) {
+    this.api.getGods()
+    .subscribe((data) => {
+      this.gods = data;
+    });
+  }
 
   ngOnInit(): void {
+  }
+
+  getGod(data) {
+    this.router.navigate(['/gods', data.Name]);
   }
 
 }

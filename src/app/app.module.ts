@@ -7,13 +7,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
 import { GodsComponent } from './gods/gods.component';
 import { ItemsComponent } from './items/items.component';
+import { GodpageComponent } from './godpage/godpage.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     GodsComponent,
-    ItemsComponent
+    ItemsComponent,
+    GodpageComponent
   ],
   imports: [
     BrowserModule,
