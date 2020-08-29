@@ -11,18 +11,14 @@ import { ApiService } from '../api.service';
   styleUrls: ['./godpage.component.css']
 })
 export class GodpageComponent implements OnInit {
+  id: string;
   data: any = {};
   private param: any;
   private localPath = '../../assets/gods.json';
 
   constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient, private api: ApiService) {
-    this.route.paramMap
-    .subscribe((el) => {
-      console.log(el);
-      let god: string = el.params.god;
-      this.param = god[0].toUpperCase() + god.substr(1).toLowerCase();
-    });
-
+    this.id = this.route.snapshot.params['god'];
+    this.param = this.id[0].toUpperCase() + this.id.substr(1).toLowerCase();
   }
 
   // tslint:disable-next-line: typedef
@@ -41,18 +37,18 @@ export class GodpageComponent implements OnInit {
   // tslint:disable-next-line: typedef
   async godThroughLocal(){
     console.log('getting local data');
-    await this.api.getGodIdByName(this.param)
-    .subscribe((res) => {
-      res.map((el) => {
-        if (el.Name === this.param) {
-          this.api.getRecommendedGodItems(el.id)
-          .subscribe((resp) => {
-            console.log('resp', resp);
-            this.data = resp;
-          });
-        }
+    this.api.getGodIdByName(this.param)
+      .subscribe((res: any = []) => {
+        res.map((el) => {
+          if (el.Name === this.param) {
+            this.api.getRecommendedGodItems(el.id)
+              .subscribe((resp) => {
+                console.log('resp', resp);
+                this.data = resp;
+              });
+          }
+        });
       });
-    });
   }
 
   // tslint:disable-next-line: typedef
