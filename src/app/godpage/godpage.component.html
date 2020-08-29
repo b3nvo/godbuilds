@@ -1,5 +1,7 @@
-<h2>{{ data[0].god_name}}</h2>
-<div class="data" *ngFor="let item of data; let i = index">
-  {{ item.Item }}
+<div class="page" *ngIf="data.length > 0">
+  <h2>{{ data[0].god_name}}</h2>
+  <div class="data" *ngFor="let item of data; let i = index">
+    {{ item.Item }}
+  </div>
 </div>
 

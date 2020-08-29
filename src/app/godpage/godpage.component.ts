@@ -19,7 +19,8 @@ export class GodpageComponent implements OnInit {
     this.route.paramMap
     .subscribe((el) => {
       console.log(el);
-      this.param = el;
+      let god: string = el.params.god;
+      this.param = god[0].toUpperCase() + god.substr(1).toLowerCase();
     });
 
   }
@@ -30,7 +31,7 @@ export class GodpageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.hasNumber(this.param.params.god)) {
+    if (this.hasNumber(this.param)) {
       this.godThroughHttp();
     } else {
       this.godThroughLocal();
@@ -40,27 +41,24 @@ export class GodpageComponent implements OnInit {
   // tslint:disable-next-line: typedef
   async godThroughLocal(){
     console.log('getting local data');
-    const id = await this.api.getGodIdByName(this.param.params.god)
+    await this.api.getGodIdByName(this.param)
     .subscribe((res) => {
       res.map((el) => {
-        if (el.Name === this.param.params.god) {
+        if (el.Name === this.param) {
           this.api.getRecommendedGodItems(el.id)
           .subscribe((resp) => {
+            console.log('resp', resp);
             this.data = resp;
           });
         }
-      })
-    })
-
-    console.log('id', id);
-
-
+      });
+    });
   }
 
   // tslint:disable-next-line: typedef
   godThroughHttp() {
     console.log('getting http data');
-    this.api.getRecommendedGodItems(this.param.params.god)
+    this.api.getRecommendedGodItems(this.param)
     .subscribe((el) => {
       this.data = el;
     });
