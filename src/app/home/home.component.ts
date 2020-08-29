@@ -21,8 +21,7 @@ export class HomeComponent implements OnInit {
 
   }
 
-  
-
+  // tslint:disable-next-line: typedef
   onSubmit(data) {
     this.api.getMatchHistory(data.username);
   }

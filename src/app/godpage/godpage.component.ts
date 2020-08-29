@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { map } from 'rxjs/operators';
+import { Component, OnInit, ɵConsole } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { ApiService } from '../api.service';
+
 
 @Component({
   selector: 'app-godpage',
@@ -8,29 +11,58 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./godpage.component.css']
 })
 export class GodpageComponent implements OnInit {
-  private data:any = {};
-  private gods:any = [];
-  private param:any;
-  constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient) {
+  data: any = {};
+  private param: any;
+  private localPath = '../../assets/gods.json';
+
+  constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient, private api: ApiService) {
     this.route.paramMap
     .subscribe((el) => {
+      console.log(el);
       this.param = el;
     });
+
+  }
+
+  // tslint:disable-next-line: typedef
+  hasNumber(myString) {
+    return /\d/.test(myString);
   }
 
   ngOnInit(): void {
-    this.getLocalData();
+    if (this.hasNumber(this.param.params.god)) {
+      this.godThroughHttp();
+    } else {
+      this.godThroughLocal();
+    }
   }
 
-  async getLocalData(){
-    await this.http.get('../../assets/gods.json')
-    .subscribe((el) => {
-      el.map((item) => {
-        if (item.Name === this.param.params.god) {
-          console.log(item);
-          this.data = item;
+  // tslint:disable-next-line: typedef
+  async godThroughLocal(){
+    console.log('getting local data');
+    const id = await this.api.getGodIdByName(this.param.params.god)
+    .subscribe((res) => {
+      res.map((el) => {
+        if (el.Name === this.param.params.god) {
+          this.api.getRecommendedGodItems(el.id)
+          .subscribe((resp) => {
+            this.data = resp;
+          });
         }
       })
+    })
+
+    console.log('id', id);
+
+
+  }
+
+  // tslint:disable-next-line: typedef
+  godThroughHttp() {
+    console.log('getting http data');
+    this.api.getRecommendedGodItems(this.param.params.god)
+    .subscribe((el) => {
+      this.data = el;
     });
   }
 }

@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class GodsComponent implements OnInit {
 
-  gods:any = [];
+  gods: any = [];
 
   constructor(private api: ApiService, private route: ActivatedRoute, private router: Router) {
     this.api.getGods()
@@ -21,8 +21,9 @@ export class GodsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // tslint:disable-next-line: typedef
   getGod(data) {
-    this.router.navigate(['/gods', data.Name]);
+    this.router.navigate(['/gods', data.id]);
   }
 
 }
